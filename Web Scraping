@@ -23,7 +23,6 @@ date_str = date.strftime('%Y-%m-%d')
 day_count = (end_date - start_date).days
 date = start_date
 directory = os.getcwd()
-count = 0
 
 driver = webdriver.Chrome("./chromedriver")
 for i in range(day_count):
