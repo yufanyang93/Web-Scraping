@@ -15,15 +15,14 @@ from selenium.common.exceptions import NoSuchElementException
 path = "/Volumes/Mac/Historical Newspaper"
 os.chdir(path)
 
-start_date = dt.date(1949, 10, 1)
-end_date = dt.date(1970, 12, 31)
+start_date = dt.date(1946, 5, 1)
+end_date = dt.date(2003, 12, 31)
 day_count = (end_date-start_date).days
 date = start_date
 date_str = date.strftime('%Y-%m-%d')
 day_count = (end_date - start_date).days
 date = start_date
 directory = os.getcwd()
-count = 0
 
 driver = webdriver.Chrome("./chromedriver")
 for i in range(day_count):
