@@ -11,8 +11,6 @@ import random
 import string
 from datetime import datetime
 
-pip install chromedriver-py
-
 driver = webdriver.Chrome("./chromedriver")
 directory="./web"
 
