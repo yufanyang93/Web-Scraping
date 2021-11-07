@@ -65,8 +65,24 @@ for link in linklist:
     url = 'https://rg.ru' + link
     html = fetchUrl(url)
     bsobj = BeautifulSoup(html, 'html.parser')
-    title = bsobj.find('h1', attrs = {'class': lambda e: e.endswith('title') if e else False}).text
-    date = bsobj.find('span', attrs = {'class': lambda d: d.endswith('day') if d else False}).text
+    title = bsobj.find('h1', attrs = {'class': 'b-material-head__title'})
+    if title is None:
+        title = bsobj.find('h1', attrs = {'class': 'b-material-wrapper__title'})
+        if title is None:
+            title = bsobj.find('div', attrs = {'class': 'b-material-head__title'})
+
+    if title is not None:
+        title_text = title.text
+
+    date = bsobj.find('span', attrs = {'class': 'b-material-head__date-day'})
+    if date is None:
+        date = bsobj.find('span', attrs = {'class': 'b-material-date__day'})
+        if date is None:
+            date = bsobj.find('div', attrs = {'class': 'b-material-head__date-item b-material-head__date-day'})
+
+    if date is not None:
+        date_text = date.text
+        
     content_list = bsobj.find('div', attrs = {'class': 'b-material-wrapper__text'}).find_all('p')
     content = ''
     for p in content_list:
@@ -74,8 +90,8 @@ for link in linklist:
         if content is None:
             continue
 
-    ru_date.append(date)
-    ru_title.append(title)
+    ru_date.append(date_text)
+    ru_title.append(title_text)
     ru_content.append(content)
 
 ru_df =pd.DataFrame(list(zip(ru_date, ru_title, ru_content)), columns = ['date', 'title', 'content'])
