@@ -45,3 +45,25 @@ def get_link(i, j):
         i+=1
     return linklist
 
+ru_date = []
+ru_title = []
+ru_content = []
+
+for link in linklist:
+    url = 'https://rg.ru' + link
+    html = fetchUrl(url)
+    bsobj = BeautifulSoup(html, 'html.parser')
+    title = bsobj.find('h1', attrs = {'class': lambda e: e.endswith('title') if e else False}).text
+    date = bsobj.find('span', attrs = {'class': lambda e: e.endswith('day') if e else False}).text
+    content_list = bsobj.find('div', attrs = {'class': 'b-material-wrapper__text'}).find_all('p')
+    content = ''
+    for p in content_list:
+        content += p.text + '\n'
+        if content is None:
+            continue
+
+    ru_date.append(date)
+    ru_title.append(title)
+    ru_content.append(content)
+
+ru_df =pd.DataFrame(list(zip(ru_date, ru_title, ru_content)), columns = ['date', 'title', 'content'])
