@@ -1,11 +1,11 @@
 import os
 import glob
 import pandas as pd
-from collections import defaultdict
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 import time
+import requests
 
 dir = "/Volumes/Mac/RU/data"
 os.chdir(dir)
@@ -44,6 +44,18 @@ def get_link(i, j):
 
         i+=1
     return linklist
+
+def fetchUrl(url):
+    headers = {
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
+    }
+
+    r = requests.get(url,headers=headers)
+    if r.status_code!=200:
+        pass
+    r.encoding = r.apparent_encoding
+    return r.text
 
 ru_date = []
 ru_title = []
