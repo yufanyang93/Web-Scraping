@@ -66,7 +66,7 @@ for link in linklist:
     html = fetchUrl(url)
     bsobj = BeautifulSoup(html, 'html.parser')
     title = bsobj.find('h1', attrs = {'class': lambda e: e.endswith('title') if e else False}).text
-    date = bsobj.find('span', attrs = {'class': lambda e: e.endswith('day') if e else False}).text
+    date = bsobj.find('span', attrs = {'class': lambda d: d.endswith('day') if d else False}).text
     content_list = bsobj.find('div', attrs = {'class': 'b-material-wrapper__text'}).find_all('p')
     content = ''
     for p in content_list:
