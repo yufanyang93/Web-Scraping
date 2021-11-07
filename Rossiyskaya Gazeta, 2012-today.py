@@ -82,8 +82,14 @@ for link in linklist:
 
     if date is not None:
         date_text = date.text
-        
-    content_list = bsobj.find('div', attrs = {'class': 'b-material-wrapper__text'}).find_all('p')
+
+    content_list = bsobj.find('div', attrs = {'class': 'b-material-wrapper__text'})
+    if content_list is None:
+        content_list = bsobj.find('article', attrs = {'class': 'b-material-wrapper__body'})
+
+    if content_list is not None:
+        content_list = content_list.find_all('p')
+
     content = ''
     for p in content_list:
         content += p.text + '\n'
@@ -93,5 +99,8 @@ for link in linklist:
     ru_date.append(date_text)
     ru_title.append(title_text)
     ru_content.append(content)
+
+ru_df =pd.DataFrame(list(zip(ru_date, ru_title, ru_content)), columns = ['date', 'title', 'content'])
+
 
 ru_df =pd.DataFrame(list(zip(ru_date, ru_title, ru_content)), columns = ['date', 'title', 'content'])
