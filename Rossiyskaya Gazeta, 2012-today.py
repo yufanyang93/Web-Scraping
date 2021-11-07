@@ -90,17 +90,14 @@ for link in linklist:
     if content_list is not None:
         content_list = content_list.find_all('p')
 
-    content = ''
-    for p in content_list:
-        content += p.text + '\n'
-        if content is None:
-            continue
+        content = ''
+        for p in content_list:
+            content += p.text + '\n'
+            if content is None:
+                continue
 
     ru_date.append(date_text)
     ru_title.append(title_text)
-    ru_content.append(content)
-
-ru_df =pd.DataFrame(list(zip(ru_date, ru_title, ru_content)), columns = ['date', 'title', 'content'])
-
+    ru_content.append(content)   
 
 ru_df =pd.DataFrame(list(zip(ru_date, ru_title, ru_content)), columns = ['date', 'title', 'content'])
