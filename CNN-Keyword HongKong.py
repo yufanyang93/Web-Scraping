@@ -66,7 +66,7 @@ def cnn_scraper (j):
 
         cnn_date.append(df_temp['date'])
         cnn_title.append(df_temp['headline'])
-        cnn_content.append(df_temp[content])
+        cnn_content.append(df_temp['content'])
         j+=1
     return cnn_df
 
